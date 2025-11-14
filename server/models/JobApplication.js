@@ -4,7 +4,7 @@ let JobApplicationSchema = new mongoose.Schema(
     {
         company: String,
         position: String,
-        dateApplied: String,
+        dateApplied: Date,
         status: String,
         location: String,
         jobType: String,

@@ -4,40 +4,40 @@
  <div class="container">
     <div class="row">
         <div class="offset-md-3 col-md-6">
-            <h1>Add Job Application</h1>
+            <h1>Edit Job Application</h1>
 
             <form class="form" method="post">
                 <div class="form-group">
                     <label for="company">Company</label>
-                    <input type="text" class="form-control" id="company" name="company" required>
+                    <input type="text" class="form-control" id="company" name="company" value="<%= application.company %>" required>
                 </div>
                 <div class="form-group">
                     <label for="position">Position</label>
-                    <input type="text" class="form-control" id="position" name="position" required>
+                    <input type="text" class="form-control" id="position" name="position" value="<%= application.position %>" required>
                 </div>
                 <div class="form-group">
                     <label for="dateApplied">Date Applied</label>
-                    <input type="date" class="form-control" id="dateApplied" name="dateApplied" required>
+                    <input type="date" class="form-control" id="dateApplied" name="dateApplied" value="<%= application.dateApplied.toISOString().split('T')[0] %>" required>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" required>
+                    <input type="text" class="form-control" id="status" name="status" value="<%= application.status %>" required>
                 </div>
                 <div class="form-group">
                     <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" required>
+                    <input type="text" class="form-control" id="location" name="location" value="<%= application.location %>" required>
                 </div>
                 <div class="form-group">
                     <label for="jobType">Job Type</label>
-                    <input type="text" class="form-control" id="jobType" name="jobType" required>
+                    <input type="text" class="form-control" id="jobType" name="jobType" value="<%= application.jobType %>" required>
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <input type="text" class="form-control" id="notes" name="notes" required>
+                    <input type="text" class="form-control" id="notes" name="notes" value="<%= application.notes %>" required>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i> Submit
+                        <i class="fas fa-user-check"></i> Update
                     </button>
                     <a href="/applications" class="btn btn-danger">
                         <i class="fas fa-user-times"></i> Cancel
@@ -47,5 +47,4 @@
         </div>
     </div>
  </div>
-
-<% include ../partials/footer %> <!-- Include footer partial for consistent sidebar section -->
+<% include ../partials/footer %>

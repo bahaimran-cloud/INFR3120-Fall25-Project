@@ -1,0 +1,10 @@
+/* Hero / Landing styles */
+.hero { padding: 60px 0; }
+.logo-img { width: 140px; height: auto; }
+.hero-title { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+.lead { font-size: 1.125rem; }
+
+@media (max-width: 576px) {
+	.logo-img { width: 100px; }
+	.hero-title { font-size: 1.75rem; }
+}

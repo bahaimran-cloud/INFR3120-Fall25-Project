@@ -1,8 +1,21 @@
-
+  
   <% include partials/header %> <!-- Include header partial for consistent head section -->
   <% include partials/main_nav %>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <main class="container hero mt-5">
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="/content/careerpointerlogo.webp" alt="Team Logo" class="logo-img mb-3" />
+        </div>
+        <div class="col-md-8">
+          <h1 class="hero-title"><%= title %></h1>
+          <p class="lead">Welcome to <strong><%= title %></strong> — a small app to track your job applications. Create, edit, and remove application records easily.</p>
+          <div class="mt-4">
+            <a href="/applications/add" class="btn btn-primary btn-lg me-2">Create New Application</a>
+            <a href="/applications" class="btn btn-outline-secondary btn-lg">View Applications</a>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
   <% include partials/footer %>

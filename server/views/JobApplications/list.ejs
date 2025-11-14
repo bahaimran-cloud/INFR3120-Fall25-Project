@@ -14,18 +14,25 @@
                     <th class="text-center col-2">Status</th>
                     <th class="text-center col-2">Location</th>
                     <th class="text-center col-2">Job Type </th>
-                    <th class="text-center col-2">Notes</th>
+                    <th class="text-center col-2">Actions</th>
                 </tr>
                 <!--for/while loop-->
                 <% for (let count=0; count<applications.length; count++) { %>
                     <tr class="d-flex">
-                        <th class="text-center col-2"><%= applications[count].company %></th>
-                        <th class="text-center col-2"><%= applications[count].position %></th>
-                        <th class="text-center col-2"><%= applications[count].dateApplied %></th>
-                        <th class="text-center col-2"><%= applications[count].status %></th>
-                        <th class="text-center col-2"><%= applications[count].location %></th>
-                        <th class="text-center col-2"><%= applications[count].jobType %></th>
-                        <th class="text-center col-2"><%= applications[count].notes %></th>
+                        <td class="text-center col-2"><%= applications[count].company %></td>
+                        <td class="text-center col-2"><%= applications[count].position %></td>
+                        <td class="text-center col-2"><%= applications[count].dateApplied %></td>
+                        <td class="text-center col-2"><%= applications[count].status %></td>
+                        <td class="text-center col-2"><%= applications[count].location %></td>
+                        <td class="text-center col-2"><%= applications[count].jobType %></td>
+                        <td class="text-center col-2">
+                            <a href="/applications/edit/<%= applications[count]._id %>" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="/applications/delete/<%= applications[count]._id %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
                     </tr>
                 <% } %>
             </table>
