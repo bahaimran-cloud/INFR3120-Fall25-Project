@@ -31,28 +31,28 @@ router.get('/add',async(req, res, next) => {
 })
 
 router.post('/add',async(req, res, next) => {
-    try 
-    {
+    try {
         let newApplication = JobApplication({
             "company": req.body.company,
             "position": req.body.position,
+            "dateApplied": req.body.dateApplied,
             "status": req.body.status,
-            "appliedDate": req.body.appliedDate
-            // "location": req.body.location
-            // notes: req.body.notes
+            "location": req.body.location,
+            "jobType": req.body.jobType,
+            "notes": req.body.notes
         });
         JobApplication.create(newApplication).then(()=> {
             res.redirect('/applications');
-        }) 
+        });
     }
     catch (err) {
         console.error(err);
         res.render('JobApplication/add', {
             error:'Error on server'
-        })
+        });
     }
 
-})
+});
 
 router.get('/edit/:id',async(req, res, next) => {
     try {
