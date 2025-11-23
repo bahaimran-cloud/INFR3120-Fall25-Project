@@ -1,0 +1,40 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+<main class="container">
+    <% if(message.length > 0) { %>
+        <div class="alert alter danger"> <!-- Display error message if exists -->
+            <%= message %> <!-- Display error message if exists -->
+        </div>
+    <%}%>
+    <div class="row">
+        <div class="offset-md-4 col-md-4">
+            <h1>Please login</h1>
+            
+            <form method="post" autocomplete="off">
+                <fieldset class="form-group">
+                    <label for="username"></label>
+                    <input type="text" class="form-control"
+                    name="username"
+                    placeholder="Enter username"
+                    id="username" required autofocus>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="password"></label>
+                    <input type="password" class="form-control"
+                    name="password"
+                    placeholder="Enter password"
+                    id="password" required>
+                    or
+                    <a href="/register">Register here</a>
+                </fieldset>
+                <fieldset class="form-group text-right">
+                    <input type="submit" class="btn btn-success" value="Login"> <!-- Login button -->
+                    <a href="/"></a>
+                    <input type="button" class="btn btn-warning" value="Cancel"> <!-- Cancel button -->
+                    <a href="/"></a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include ../partials/footer.ejs %>
