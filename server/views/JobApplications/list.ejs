@@ -5,7 +5,13 @@
         <div class="offset-md-1 col-md-10">
             <h1>Job Application</h1>
             <br>
+            <% if(typeof displayName=='string' && displayName) { %>
+                <a href="/applications/add" class="btn btn-primary mb-3">
+                    <i class="fas fa-plus-circle"></i> Add New Application
+                </a>
+            <% } %>
             <table class="table table-bordered table-striped table-hover">
+            <% if(typeof displayName=='string' && displayName) { %>
                 <!--Header Row-->
                 <tr class="d-flex">
                     <th class="text-center col-2">Company</th>
@@ -34,6 +40,31 @@
                             </a>
                         </td>
                     </tr>
+                <% } %>
+                <% } else { %>
+                <!--Header Row-->
+                <tr class="d-flex">
+                    <th class="text-center col-2">Company</th>
+                    <th class="text-center col-2">Position</th>
+                    <th class="text-center col-2">Date Applied</th>
+                    <th class="text-center col-2">Status</th>
+                    <th class="text-center col-2">Location</th>
+                    <th class="text-center col-2">Job Type </th>
+                    <th class="text-center col-2">Actions</th>
+                </tr>
+                <!--for/while loop-->
+                <% for (let count=0; count<applications.length; count++) { %>
+                    <tr class="d-flex">
+                        <td class="text-center col-2"><%= applications[count].company %></td>
+                        <td class="text-center col-2"><%= applications[count].position %></td>
+                        <td class="text-center col-2"><%= applications[count].dateApplied %></td>
+                        <td class="text-center col-2"><%= applications[count].status %></td>
+                        <td class="text-center col-2"><%= applications[count].location %></td>
+                        <td class="text-center col-2"><%= applications[count].jobType %></td>
+                        <td class="text-center col-2">Login to Edit or Delete
+                        </td>
+                    </tr>
+                <% } %>
                 <% } %>
             </table>
         </div>

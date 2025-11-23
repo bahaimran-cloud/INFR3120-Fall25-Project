@@ -8,15 +8,15 @@ let User = userModel.User;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Career Pointer' });
+  res.render('index', { title: 'Career Pointer ' , displayName: req.user ? req.user.displayName : ''});
 });
 
 router.get('/aboutus', function(req, res, next) {
-  res.render('about', { title: 'Career Pointer - About Us' });
+  res.render('about', { title: 'Career Pointer - About Us' , displayName: req.user ? req.user.displayName : '' });
 });
 
 router.get('/contact', function(req, res, next) {
-  res.render('contact', { title: 'Career Pointer - Contact Us' });
+  res.render('contact', { title: 'Career Pointer - Contact Us' , displayName: req.user ? req.user.displayName : ''});
 });
 
 // Get method for login

@@ -27,6 +27,27 @@
             <a class="nav-link" href="/contact"><i class="fa-solid fa-lg fa-address-card"></i> Contact Us</a>
           <% } %>
         </li>
+        <% if(typeof displayName=='string' && displayName) { %>
+          <li class="navbar-text">
+            <i class="fas fa-lg fa-user"></i>
+            Welcome, <%= displayName %>
+          </li>
+          <li class="nav-item">
+          <% if (title == 'Career Pointer - Logout') { %>
+            <a class="nav-link active" aria-current="page" href="/logout"><i class="fa-solid fa-lg fa-user"></i> Logout</a>
+          <% } else { %>
+            <a class="nav-link" href="/logout"><i class="fa-solid fa-lg fa-sign-out-alt"></i> Logout</a>
+          <% } %>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <% if (title == 'Career Pointer - Login') { %>
+            <a class="nav-link active" aria-current="page" href="/login"><i class="fa-solid fa-lg fa-user"></i> Login</a>
+          <% } else { %>
+            <a class="nav-link" href="/login"><i class="fa-solid fa-lg fa-user"></i> Login</a>
+          <% } %>
+        </li>
+        <% } %>
       </ul>
     </div>
   </div>

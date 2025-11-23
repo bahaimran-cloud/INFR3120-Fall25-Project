@@ -4,11 +4,19 @@ let mongoose = require('mongoose');
 let Application = require('../models/JobApplication');
 const JobApplication = require('../models/JobApplication');
 
+function requireAuth(req, res, next) {
+    // check if the user is logged in
+    if(!req.isAuthenticated()){
+        return res.redirect('/login');
+    }
+    next();
+}
+
 router.get('/', (async (req, res, next) => {
     try {
         const applications = await Application.find({});
         console.log(applications);
-        res.render('JobApplications/list', {title: 'Job Applications', applications: applications});
+        res.render('JobApplications/list', {title: 'Job Applications', applications: applications , displayName: req.user ? req.user.displayName : ''});
     } catch (err) {
         console.error(err);
         res.render('JobApplication/list', {
@@ -19,7 +27,7 @@ router.get('/', (async (req, res, next) => {
 
 router.get('/add',async(req, res, next) => {
     try {
-        res.render('JobApplications/add', {title: 'Add Job Application'});
+        res.render('JobApplications/add', {title: 'Add Job Application' , displayName: req.user ? req.user.displayName : ''});
     }
     catch (err) {
         console.error(err);
@@ -58,7 +66,7 @@ router.get('/edit/:id',async(req, res, next) => {
     try {
         let id = req.params.id;
         const application = await JobApplication.findById(id);
-        res.render('JobApplications/edit', {title: 'Edit Job Application', application: application});
+        res.render('JobApplications/edit', {title: 'Edit Job Application', application: application  , displayName: req.user ? req.user.displayName : ''});
     }
     catch (err) {
         console.error(err);
