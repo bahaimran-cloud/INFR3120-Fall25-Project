@@ -6,6 +6,55 @@ let DB = require('../config/db');
 let userModel = require('../models/user');
 let User = userModel.User;
 
+function ensureAuth(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/login');
+}
+
+// Multer setup for file uploads
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, '../../public/uploads'),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${req.user._id}-${Date.now()}${ext}`);
+  }
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB cap
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) return cb(new Error('Images only'));
+    cb(null, true);
+  }
+});
+
+router.get('/profile', ensureAuth, (req, res) => {
+  res.render('auth/profile', {
+    title: 'Your Profile',
+    user: req.user,
+    displayName: req.user.displayName,
+    message: req.flash('profileMessage')
+  });
+});
+
+router.post('/profile/photo', ensureAuth, upload.single('avatar'), async (req, res, next) => {
+  if (!req.file) {
+    req.flash('profileMessage', 'Please choose an image');
+    return res.redirect('/profile');
+  }
+  try {
+    req.user.avatar = `/uploads/${req.file.filename}`;
+    await req.user.save();
+    res.redirect('/profile');
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Career Pointer - Home' , displayName: req.user ? req.user.displayName : ''});

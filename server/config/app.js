@@ -51,6 +51,15 @@ passport.deserializeUser(User.deserializeUser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// expose auth info to views (for navbar avatar/display name)
+app.use((req, res, next) => {
+  res.locals.displayName = req.user ? req.user.displayName : '';
+  res.locals.userAvatar = req.user && req.user.avatar
+    ? req.user.avatar
+    : '/content/images/default-avatar.png';
+  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');

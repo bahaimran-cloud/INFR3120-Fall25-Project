@@ -32,6 +32,12 @@ let User = mongoose.Schema({
         trim:true,
         required:'displayName is required'
     },
+    avatar:
+    {
+        type:String,
+        default:"/content/images/default-avatar.png",
+        trim:true
+    },
     created:
     {
         type:Date,

@@ -1,0 +1,21 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+<main class="page-shell container">
+  <% if(message && message.length) { %>
+    <div class="alert alert-warning"><%= message %></div>
+  <% } %>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="auth-card text-center">
+        <img src="<%= user.avatar || '/content/images/default-avatar.png' %>" alt="Profile photo"
+             class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;">
+        <h3 class="mb-3"><%= user.displayName %></h3>
+        <form action="/profile/photo" method="post" enctype="multipart/form-data">
+          <input type="file" name="avatar" accept="image/*" class="form-control mb-3" required>
+          <button class="btn btn-primary" type="submit">Update photo</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include ../partials/footer.ejs %>
