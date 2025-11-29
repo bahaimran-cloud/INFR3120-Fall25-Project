@@ -1,55 +1,42 @@
 <%- include ../partials/header.ejs %>
 <%- include ../partials/main_nav.ejs %>
-<main class="container">
-    <% if(message.length > 0) { %>
-        <div class="alert alter danger">
-            <%= message %>
-        </div>
-    <%}%>
-    <div class="row">
-        <div class="offset-md-4 col-md-4">
-            <br></br>
-            <br></br>
-
-            <h1>Register here</h1>
-            <form method="post" autocomplete="off">
-                <fieldset class="form-group">
-                    <label for="username"></label>
-                    <input type="text" class="form-control"
-                    name="username"
-                    placeholder="Enter username"
-                    id="username" required autofocus>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="password"></label>
-                    <input type="password" class="form-control"
-                    name="password"
-                    placeholder="Enter password"
-                    id="password" required>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="email"></label>
-                    <input type="email" class="form-control"
-                    name="email"
-                    placeholder="Enter your email"
-                    id="email" required>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="displayName"></label>
-                    <input type="displayName" class="form-control"
-                    name="displayName"
-                    placeholder="Enter your displayName"
-                    id="displayName" required>
-                </fieldset>
-                <fieldset class="form-group text-right">
-                    <br>
-                    <input type="submit" class="btn btn-success" value="Register" >
-                    <a href="/"></a>
-                    <input type="button" onclick="location.href='/'" class="btn btn-warning" value="Cancel">
-                    <a href="/"></a>
-                </fieldset>
-            </form>
-        </div>
+<main class="page-shell container">
+  <% if(message.length > 0) { %>
+    <div class="alert alert-danger mb-4">
+      <%= message %>
     </div>
+  <% } %>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-5">
+      <div class="auth-card">
+        <div class="mb-3">
+          <p class="mb-1">Create account</p>
+          <h1 class="h3 mb-0">Join Career Pointer <i class="fa-solid fa-user-plus text-primary"></i></h1>
+        </div>
+
+        <form method="post" autocomplete="off" class="form-stack">
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter username" id="username" required autofocus>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter password" id="password" required>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="displayName" class="form-label">Display name</label>
+            <input type="text" class="form-control" name="displayName" placeholder="What should we call you?" id="displayName" required>
+          </div>
+          <button type="submit" class="btn btn-primary me-2 mb-2">Register</button>
+          <button type="button" onclick="location.href='/'" class="btn btn-outline-light text-dark border-0 soft-btn mb-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 <%- include ../partials/footer.ejs %>

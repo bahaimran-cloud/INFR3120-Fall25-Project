@@ -1,56 +1,42 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark glass-nav fixed-top shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Career Pointer</a>
+    <a class="navbar-brand fw-bold letter-space" href="/">
+      <img src="/content/images/Careerpointerlogo.webp" alt="Career Pointer logo" style="height:32px; width:auto; margin-right:8px;">Career Pointer
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <% if (title == 'Career Pointer - Home Page' || title == 'Home Page') { %>
-            <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-lg fa-house"></i> Home</a>
-          <% } else { %>
-            <a class="nav-link" href="/"><i class="fa-solid fa-lg fa-house"></i> Home</a>
-          <% } %>
+          <a class="nav-link <%= title.includes('Home') ? 'active' : '' %>" aria-current="page" href="/"><i class="fa-solid fa-house me-2"></i>Home</a>
         </li>
         <li class="nav-item">
-          <% if (title == 'Career Pointer - About Us') { %>
-            <a class="nav-link active" aria-current="page" href="/aboutus"><i class="fa-solid fa-lg fa-user-tie"></i> About Us</a>
-          <% } else { %>
-            <a class="nav-link" href="/aboutus"><i class="fa-solid fa-lg fa-user-tie"></i> About Us</a>
-          <% } %>
+          <a class="nav-link <%= title.includes('About') ? 'active' : '' %>" aria-current="page" href="/aboutus"><i class="fa-solid fa-user-tie me-2"></i>About</a>
         </li>
         <li class="nav-item">
-          <% if (title == 'Career Pointer - Contact Us') { %>
-            <a class="nav-link active" aria-current="page" href="/contact"><i class="fa-solid fa-lg fa-address-card"></i> Contact Us</a>
-          <% } else { %>
-            <a class="nav-link" href="/contact"><i class="fa-solid fa-lg fa-address-card"></i> Contact Us</a>
-          <% } %>
+          <a class="nav-link <%= title.includes('Contact') ? 'active' : '' %>" aria-current="page" href="/contact"><i class="fa-solid fa-address-card me-2"></i>Contact</a>
         </li>
-
-
-
-      </ul>      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link <%= title.includes('Application') ? 'active' : '' %>" aria-current="page" href="/applications"><i class="fa-solid fa-table-list me-2"></i>Applications</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if(typeof displayName=='string' && displayName) { %>
-          <li class="navbar-text">
-            <i class="fas fa-lg fa-user"></i>
-            Welcome, <%= displayName %>
+          <li class="navbar-text me-lg-3">
+            <i class="fas fa-user-circle me-2"></i>
+            Welcome, <strong><%= displayName %></strong>
           </li>
           <li class="nav-item">
-          <% if (title == 'Career Pointer - Logout') { %>
-            <a class="nav-link active" aria-current="page" href="/logout"><i class="fa-solid fa-lg fa-user"></i> Logout</a>
-          <% } else { %>
-            <a class="nav-link" href="/logout"><i class="fa-solid fa-lg fa-sign-out-alt"></i> Logout</a>
-          <% } %>
-        </li>
+            <a class="btn btn-sm btn-light text-dark" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout</a>
+          </li>
         <% } else { %>
-        <li class="nav-item">
-          <% if (title == 'Career Pointer - Login') { %>
-            <a class="nav-link active" aria-current="page" href="/login"><i class="fa-solid fa-lg fa-user"></i> Login</a>
-          <% } else { %>
-            <a class="nav-link" href="/login"><i class="fa-solid fa-lg fa-user"></i> Login</a>
-          <% } %>
-        </li>
+          <li class="nav-item me-2">
+            <a class="nav-link <%= title.includes('Login') ? 'active' : '' %>" href="/login"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-primary" href="/register"><i class="fa-solid fa-user-plus me-2"></i>Register</a>
+          </li>
         <% } %>
       </ul>
     </div>

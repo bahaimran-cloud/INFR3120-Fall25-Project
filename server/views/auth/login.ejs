@@ -1,47 +1,37 @@
 <%- include ../partials/header.ejs %>
 <%- include ../partials/main_nav.ejs %>
-<main class="container">
-    <div class="row">
-        <div class="offset-md-4 col-md-4">
-            <br></br>
-            <br></br>
-            <div style="min-height: 50px;">
-                <% if(message.length > 0) { %>
-                    <div class="alert alert-danger"> 
-                        <%= message %>
-                    </div>
-                <%}%>
-            </div>
-
-            <h1>Please login</h1>
-            
-            <form method="post" autocomplete="off">
-                <fieldset class="form-group">
-                    <label for="username"></label>
-                    <input type="text" class="form-control"
-                    name="username"
-                    placeholder="Enter username"
-                    id="username" required autofocus>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="password"></label>
-                    <input type="password" class="form-control"
-                    name="password"
-                    placeholder="Enter password"
-                    id="password" required>
-                    or
-                    <a href="/register">Register here</a>
-                </fieldset>
-                <fieldset class="form-group text-right">
-                    <br>
-                    <!-- route user back to home page  for each button-->
-                    <input type="submit" class="btn btn-success" value="Login" > <!-- Login button -->
-                        <a href="/"></a>
-                    <input type="button" class="btn btn-warning" value="Cancel" onclick="location.href='/'"> <!-- Cancel button -->
-                        <a href="/"></a>
-                </fieldset>
-            </form>
+<main class="page-shell container">
+  <div class="row justify-content-center">
+    <div class="col-lg-5">
+      <div class="auth-card">
+        <div class="mb-3">
+          <p class="mb-1">Welcome back</p>
+          <h1 class="h3 mb-0">Login to Career Pointer <i class="fa-solid fa-shield-check text-primary"></i></h1>
         </div>
+
+        <div style="min-height: 40px;">
+          <% if(message.length > 0) { %>
+            <div class="alert alert-danger mb-3">
+              <%= message %>
+            </div>
+          <% } %>
+        </div>
+
+        <form method="post" autocomplete="off" class="form-stack">
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter username" id="username" required autofocus>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter password" id="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary me-2 mb-2">Login</button>
+          <button type="button" class="btn btn-outline-light text-dark border-0 soft-btn me-2 mb-2" onclick="location.href='/'">Cancel</button>
+          <p class="text-muted">New here? <a href="/register">Register now</a></p>
+        </form>
+      </div>
     </div>
+  </div>
 </main>
 <%- include ../partials/footer.ejs %>

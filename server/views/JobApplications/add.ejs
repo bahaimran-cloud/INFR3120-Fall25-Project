@@ -1,61 +1,59 @@
-<% include ../partials/header %> <!-- Include header partial for consistent head section -->
-<% include ../partials/main_nav %> <!-- Include main nav partial for consistent nav section -->
-<!-- Content -->
- <div class="container">
-    <div class="row">
-        <div class="offset-md-3 col-md-6">
-            <br></br>
-            <br></br>
-            <h1>Add Job Application</h1>
+<% include ../partials/header %>
+<% include ../partials/main_nav %>
+<main class="page-shell container">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card panel-card">
+        <div class="card-body">
+          <p class="mb-1">New entry</p>
+          <h1 class="h3 mb-3">Add job application</h1>
 
-            <form class="form" method="post">
-                <div class="form-group">
-                    <label for="company">Company</label>
-                    <input type="text" class="form-control" id="company" name="company" required>
-                </div>
-                <div class="form-group">
-                    <label for="position">Position</label>
-                    <input type="text" class="form-control" id="position" name="position" required>
-                </div>
-                <div class="form-group">
-                    <label for="dateApplied">Date Applied</label>
-                    <input type="date" class="form-control" id="dateApplied" name="dateApplied" required>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" id="status" name="status" required>
-                        <option value="" disabled selected>Select status</option>
-                        <option value="Applied">Applied</option>
-                        <option value="Interviewing">Interviewing</option>
-                        <option value="Offered">Offered</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="Hired">Hired</option>
-                        <option value="Withdrawn">Withdrawn</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" required>
-                </div>
-                <div class="form-group">
-                    <label for="jobType">Job Type</label>
-                    <input type="text" class="form-control" id="jobType" name="jobType" required>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Notes</label>
-                    <input type="text" class="form-control" id="notes" name="notes" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i> Submit
-                    </button>
-                    <a href="/applications" class="btn btn-danger">
-                        <i class="fas fa-user-times"></i> Cancel
-                    </a>
-                </div>
-            </form>
+          <form class="form-stack" method="post">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="company" class="form-label">Company</label>
+                <input type="text" class="form-control" id="company" name="company" placeholder="e.g., Acme Corp" required>
+              </div>
+              <div class="col-md-6">
+                <label for="position" class="form-label">Position</label>
+                <input type="text" class="form-control" id="position" name="position" placeholder="e.g., Frontend Developer" required>
+              </div>
+              <div class="col-md-6">
+                <label for="dateApplied" class="form-label">Date applied</label>
+                <input type="date" class="form-control" id="dateApplied" name="dateApplied" required>
+              </div>
+              <div class="col-md-6">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                  <option value="" disabled selected>Select status</option>
+                  <option value="Applied">Applied</option>
+                  <option value="Interviewing">Interviewing</option>
+                  <option value="Offered">Offered</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Hired">Hired</option>
+                  <option value="Withdrawn">Withdrawn</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="City or Remote" required>
+              </div>
+              <div class="col-md-6">
+                <label for="jobType" class="form-label">Job type</label>
+                <input type="text" class="form-control" id="jobType" name="jobType" placeholder="Full-time, Contract, Internship" required>
+              </div>
+              <div class="col-12">
+                <label for="notes" class="form-label">Notes</label>
+                <input type="text" class="form-control" id="notes" name="notes" placeholder="Interviewers, links, or reminders" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary me-2 mb-2"><i class="fas fa-user-plus me-2"></i>Submit</button>
+            <a href="/applications" class="btn btn-outline-light text-dark border-0 soft-btn mb-2"><i class="fas fa-user-times me-2"></i>Cancel</a>
+          </form>
         </div>
+      </div>
     </div>
- </div>
+  </div>
+</main>
 
-<% include ../partials/footer %> <!-- Include footer partial for consistent sidebar section -->
+<% include ../partials/footer %>
