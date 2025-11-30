@@ -65,7 +65,7 @@ passport.use(User.createStrategy());
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.GITHUB_CALLBACK_URL || "https://careerpointer.onrender.com/auth/github/callback",
+    callbackURL: process.env.GITHUB_CALLBACK_URL || "https://careerpointer.onrender.com/auth/github/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     try {
@@ -95,7 +95,7 @@ passport.use(new GitHubStrategy({
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || "https://careerpointer.onrender.com/auth/google/callback",
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || "https://careerpointer.onrender.com/auth/google/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     try {
@@ -133,9 +133,19 @@ passport.use(new DiscordStrategy({
       let user = await User.findOne({ 'oauth.discordId': profile.id });
       
       if (!user) {
+        const baseUsername = (profile.username || 'discord_user').toLowerCase().replace(/[^a-z0-9]/g, '');
+        let username = baseUsername;
+        let counter = 1;
+        
+        // Check for username conflicts
+        while (await User.findOne({ username })) {
+          username = `${baseUsername}${counter}`;
+          counter++;
+        }
+        
         user = new User({
-          username: profile.username,
-          displayName: profile.username,
+          username: username,
+          displayName: profile.username || username,
           email: profile.email || '',
           avatar: profile.avatar ? `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png` : '/content/images/default-avatar.png',
           oauth: {
@@ -153,8 +163,18 @@ passport.use(new DiscordStrategy({
 ));
 
 // Serialize and deserialize user
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
 
 // Initialize passport
 app.use(passport.initialize());

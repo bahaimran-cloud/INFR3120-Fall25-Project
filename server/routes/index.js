@@ -107,7 +107,10 @@ router.get('/auth/github',
 );
 
 router.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { 
+    failureRedirect: '/login',
+    failureFlash: true 
+  }),
   function(req, res) {
     res.redirect('/applications');
   }
@@ -119,7 +122,10 @@ router.get('/auth/google',
 );
 
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { 
+    failureRedirect: '/login',
+    failureFlash: true 
+  }),
   function(req, res) {
     res.redirect('/applications');
   }
@@ -131,7 +137,10 @@ router.get('/auth/discord',
 );
 
 router.get('/auth/discord/callback',
-  passport.authenticate('discord', { failureRedirect: '/login' }),
+  passport.authenticate('discord', { 
+    failureRedirect: '/login',
+    failureFlash: true 
+  }),
   function(req, res) {
     res.redirect('/applications');
   }
