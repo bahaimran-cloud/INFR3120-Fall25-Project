@@ -15,6 +15,15 @@ let localStrategy = passportLocal.Strategy;
 let flash = require('connect-flash');
 let cors = require('cors');
 var app = express();
+
+// Configure CORS
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 let userModel = require('../models/user');
 let User = userModel.User;
 
@@ -32,11 +41,16 @@ mongoDB.once('open', ()=>{
   console.log('Connected to MongoDB...');
 });
 
-// setup express session
 app.use(session({
-  secret: "SomeSecretString",
+  secret: process.env.SESSION_SECRET || "SomeSecretString",
   saveUninitialized: false,
-  resave: false
+  resave: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    httpOnly: true
+  }
 }));
 
 //initialize flash
