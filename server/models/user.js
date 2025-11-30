@@ -38,6 +38,24 @@ let User = mongoose.Schema({
         default:"/content/images/default-avatar.png",
         trim:true
     },
+    oauth: {
+        githubId: {
+            type: String,
+            default: ""
+        },
+        googleId: {
+            type: String,
+            default: ""
+        },
+        discordId: {
+            type: String,
+            default: ""
+        },
+        provider: {
+            type: String,
+            default: ""
+        }
+    },
     resetToken:
     {
         type:String,

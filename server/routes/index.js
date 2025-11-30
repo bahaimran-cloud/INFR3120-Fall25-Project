@@ -101,6 +101,42 @@ router.get('/login', function(req,res,next){
   }
 });
 
+// GitHub OAuth routes
+router.get('/auth/github',
+  passport.authenticate('github', { scope: ['user:email'] })
+);
+
+router.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/applications');
+  }
+);
+
+// Google OAuth routes
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/applications');
+  }
+);
+
+// Discord OAuth routes
+router.get('/auth/discord',
+  passport.authenticate('discord')
+);
+
+router.get('/auth/discord/callback',
+  passport.authenticate('discord', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/applications');
+  }
+);
+
 // Post method for login
 router.post('/login', function(req,res,next){
   passport.authenticate('local',(err,user,info)=>{
