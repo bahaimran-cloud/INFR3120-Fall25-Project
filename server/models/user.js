@@ -38,6 +38,15 @@ let User = mongoose.Schema({
         default:"/content/images/default-avatar.png",
         trim:true
     },
+    resetToken:
+    {
+        type:String,
+        default:""
+    },
+    resetExpires:
+    {
+        type:Date
+    },
     created:
     {
         type:Date,

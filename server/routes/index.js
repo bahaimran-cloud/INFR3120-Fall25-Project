@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 var express = require('express');
 var router = express.Router();
 
@@ -5,6 +7,19 @@ const passport = require('passport');
 let DB = require('../config/db');
 let userModel = require('../models/user');
 let User = userModel.User;
+
+function renderPasswordPage(req, res, token = '') {
+  res.render('auth/password', {
+    title: 'Account - Password',
+    displayName: res.locals.displayName,
+    user: req.user,
+    token,
+    changeMessage: req.flash('changeMessage'),
+    resetMessage: req.flash('resetMessage'),
+    isAuthenticated: req.isAuthenticated && req.isAuthenticated()
+  });
+}
+
 
 function ensureAuth(req, res, next) {
   if (req.isAuthenticated()) return next();
@@ -166,6 +181,83 @@ req.logout(function(err)
 })
 res.redirect("/");
 })
+
+router.get('/password', (req, res) => {
+  renderPasswordPage(req, res, req.query.token || '');
+});
+
+router.post('/password/change', ensureAuth, (req, res) => {
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+  if (newPassword !== confirmPassword) {
+    req.flash('changeMessage', 'New passwords do not match.');
+    return res.redirect('/password');
+  }
+  req.user.changePassword(currentPassword, newPassword, err => {
+    if (err) {
+      req.flash('changeMessage', 'Current password incorrect or invalid new password.');
+      return res.redirect('/password');
+    }
+    req.flash('changeMessage', 'Password updated successfully.');
+    res.redirect('/password');
+  });
+});
+
+router.post('/password/forgot', async (req, res, next) => {
+  try {
+    const email = (req.body.email || '').trim();
+    const user = await User.findOne({ email });
+    const token = crypto.randomBytes(20).toString('hex');
+    if (user) {
+      user.resetToken = token;
+      user.resetExpires = Date.now() + 3600000; // 1 hour
+      await user.save();
+      // TODO: send email with the link below
+    }
+    req.flash('resetMessage', `If that email exists, a reset link was prepared. Link: /password/reset/${token}`);
+    res.redirect('/password');
+  } catch (err) { next(err); }
+});
+
+router.get('/password/reset/:token', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      resetToken: req.params.token,
+      resetExpires: { $gt: Date.now() }
+    });
+    if (!user) {
+      req.flash('resetMessage', 'Reset link is invalid or expired.');
+      return res.redirect('/password');
+    }
+    res.redirect(`/password?token=${req.params.token}`);
+  } catch (err) { next(err); }
+});
+
+router.post('/password/reset/:token', async (req, res, next) => {
+  try {
+    const { newPassword, confirmPassword } = req.body;
+    const user = await User.findOne({
+      resetToken: req.params.token,
+      resetExpires: { $gt: Date.now() }
+    });
+    if (!user) {
+      req.flash('resetMessage', 'Reset link is invalid or expired.');
+      return res.redirect('/password');
+    }
+    if (newPassword !== confirmPassword) {
+      req.flash('resetMessage', 'Passwords do not match.');
+      return res.redirect(`/password?token=${req.params.token}`);
+    }
+    await user.setPassword(newPassword);
+    user.resetToken = '';
+    user.resetExpires = undefined;
+    await user.save();
+    req.login(user, () => {
+      req.flash('resetMessage', 'Password reset successfully.');
+      res.redirect('/password');
+    });
+  } catch (err) { next(err); }
+});
+
 
 
 module.exports = router;
