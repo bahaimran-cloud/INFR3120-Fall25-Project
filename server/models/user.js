@@ -6,11 +6,10 @@ const { collection } = require('./JobApplication');
 let User = mongoose.Schema({
     username:
     {
-        type: String,
-        default: "",
-        trim: true,
-        unique: true,
-        sparse: true
+        type:String,
+        default:"",
+        trim:true,
+        required:'Username is required'
     },
     /* password:
     {
@@ -21,21 +20,23 @@ let User = mongoose.Schema({
     },*/
     email:
     {
-        type: String,
-        default: "",
-        trim: true
+        type:String,
+        default:"",
+        trim:true,
+        required:'email is required'
     },
     displayName:
     {
-        type: String,
-        default: "",
-        trim: true
+        type:String,
+        default:"",
+        trim:true,
+        required:'displayName is required'
     },
     avatar:
     {
-        type: String,
-        default: "/content/images/default-avatar.png",
-        trim: true
+        type:String,
+        default:"/content/images/default-avatar.png",
+        trim:true
     },
     oauth: {
         githubId: {
@@ -57,28 +58,28 @@ let User = mongoose.Schema({
     },
     resetToken:
     {
-        type: String,
-        default: ""
+        type:String,
+        default:""
     },
     resetExpires:
     {
-        type: Date
+        type:Date
     },
     created:
     {
-        type: Date,
-        default: Date.now
+        type:Date,
+        default:Date.now
     },
     updated:
     {
-        type: Date,
-        default: Date.now
+        type:Date,
+        default:Date.now
     }
 },
 {
-    collection: "user"
-});
-
-let options = ({MissingPasswordError: 'Wrong/Missing Password'});
-User.plugin(passportLocalMongoose, options);
-module.exports.User = mongoose.model('User', User);
+    collection:"user"
+}
+)
+let options = ({MissingPasswordError:'Wrong/Missing Password'});
+User.plugin(passportLocalMongoose,options);
+module.exports.User = mongoose.model('User',User);
