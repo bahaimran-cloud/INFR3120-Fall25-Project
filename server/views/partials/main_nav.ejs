@@ -7,7 +7,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
         <li class="nav-item">
           <a class="nav-link <%= title.includes('Home') ? 'active' : '' %>" aria-current="page" href="/"><i class="fa-solid fa-house me-2"></i>Home</a>
         </li>
@@ -21,7 +21,7 @@
           <a class="nav-link <%= title.includes('Application') ? 'active' : '' %>" aria-current="page" href="/applications"><i class="fa-solid fa-table-list me-2"></i>Applications</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
         <% if(typeof displayName=='string' && displayName) { %>
           <li class="nav-item me-2">
             <a class="nav-link <%= title.includes('Profile') ? 'active' : '' %>" href="/profile"><i class="fa-solid fa-id-badge me-2"></i>Profile</a>
